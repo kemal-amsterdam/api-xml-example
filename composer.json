@@ -1,0 +1,27 @@
+{
+  "name": "kdjakman/voiceworks",
+  "description": "VoiceWorks PHP Assessment Test v1.0",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "kemal",
+      "email": "kdjakman@yahoo.com"
+    }
+  ],
+  "config": {
+    "platform": {
+      "php": "7.4"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Assessment\\": "src/"
+    }
+  },
+  "require": {
+    "ext-dom": "*",
+    "ext-libxml": "*",
+    "ext-simplexml": "*"
+  }
+}
