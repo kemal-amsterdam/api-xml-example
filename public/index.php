@@ -18,7 +18,7 @@ spl_autoload_register(function ($className) {
     $classPath = preg_replace('/^Assessment\b/', SRC_PATH, $className, 1);
     $classFile = str_replace('\\', '/', $classPath) . '.php';
     if (is_file($classFile) && is_readable($classFile)) {
-        require $classFile;
+        /**  @noinspection PhpIncludeInspection  */ require $classFile;
     } else {
         throw new Exception('Internal Server Error: autoloader fails', 500);
     }

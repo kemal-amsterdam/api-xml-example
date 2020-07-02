@@ -39,7 +39,6 @@ class Application
     {
         header($_SERVER['SERVER_PROTOCOL'] . " $code $text", true, $code);
         (new Nack())
-
             ->setError($code, $text)
             ->output();
     }

@@ -41,8 +41,8 @@ class Reverse extends Base
         $xml = $this->request;
         if (isset($xml->body->string)) {
             $text = (string) $xml->body->string;
-            $this->body->addChild('string', htmlspecialchars($text, ENT_XML1));
-            $this->body->addChild('reverse', htmlspecialchars(strrev($text), ENT_XML1));
+            $this->xml->body->addChild('string', htmlspecialchars($text, ENT_XML1));
+            $this->xml->body->addChild('reverse', htmlspecialchars(strrev($text), ENT_XML1));
         }
         return $this;
     }

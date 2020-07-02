@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Assessment\Xml\Response;
 
+use Assessment\Xml\Validator;
 use SimpleXMLElement;
 use Exception;
 
@@ -11,9 +12,8 @@ abstract class Base
 {
     const SENDER = 'Assessment';
 
+    protected string $type;
     protected SimpleXMLElement $xml;
-    protected SimpleXMLElement $header;
-    protected SimpleXMLElement $body;
 
     /**
      * @var bool Whether <error> node has already been applied under the <body> node
@@ -28,12 +28,14 @@ abstract class Base
      */
     public function __construct(string $type, string $recipient = '', string $reference = '')
     {
-        $xmlTag = '<?xml version="1.0" encoding="UTF-8"?>';
-        $this->xml = new SimpleXMLElement($xmlTag . "<{$type}/>");
-        $this->header = $this->xml->addChild('header');
-        $this->body = $this->xml->addChild('body');
+        $this->type = $type;
 
-        $this->setHeader($type, $recipient, $reference);
+        $xmlTag = sprintf('<?xml version="1.0" encoding="UTF-8"?><%s/>', $type);
+        $this->xml = new SimpleXMLElement($xmlTag);
+        $this->xml->addChild('header');
+        $this->xml->addChild('body');
+
+        $this->setHeader($recipient, $reference);
     }
 
     /**
@@ -44,14 +46,13 @@ abstract class Base
 
     /**
      * Populate the header node with the required (and optional) elements
-     * @param string $type
      * @param string $recipient
      * @param string $reference
      */
-    protected function setHeader(string $type, string $recipient = '', string $reference = '')
+    protected function setHeader(string $recipient, string $reference)
     {
-        $header = $this->header;
-        $header->addChild('type', $type);
+        $header = $this->xml->header;
+        $header->addChild('type', $this->type);
         $header->addChild('sender', self::SENDER);
         $header->addChild('recipient', htmlspecialchars($recipient, ENT_XML1));
         if ($reference) {
@@ -76,7 +77,7 @@ abstract class Base
             throw new Exception('Internal Server Error: error element has already been set', 500);
         }
 
-        $errorNode = $this->body->addChild('error');
+        $errorNode = $this->xml->body->addChild('error');
         $errorNode->addChild('code', (string) $code);
         if ($message) {
             $errorNode->addChild('message', htmlspecialchars($message, ENT_XML1));
@@ -87,13 +88,23 @@ abstract class Base
 
     /**
      * Output the whole xml as the http response
+     * @throws Exception
      */
     public function output()
     {
+        $xmlString = $this->xml->asXML();
+        try {
+            Validator::run($this->type, $xmlString);
+        } catch (Exception $e) {
+            throw new Exception(
+                sprintf('Internal Server Error: output validation fails (%s)', $e->getCode()),
+                500
+            );
+        }
+
         if (!headers_sent()) {
             header('Content-Type: application/xml; charset=utf-8');
         }
-
-        echo $this->xml->asXML();
+        echo $xmlString;
     }
 }

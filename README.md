@@ -6,7 +6,7 @@ This is a collection of PHP scripts and supporting files made for VoiceWorks PHP
 Requirements
 ------------
 The scripts is expected to be installed on an environment running Apache http server version 2 (or higher) with PHP
-version 7.2 (or higher)
+version 7.4 (or higher)
 
 
 Installation
@@ -46,7 +46,7 @@ How to add a new entry point
 ----------------------------
 * Choose a name (a word) that ends with '_request', e.g. _my_request_.
 * Design the xml structure based on the common structure of existing entry points (_ping_request_, _reverse_request_)
-* Create the appropriate xsd file, e.g. _my_request.xsd_ and place it in the src/xsds folder
+* Create the appropriate xsd file, e.g. _my_request.xsd_ and _my_response.xsd_, place it in the src/xsds folder
 * Make a php class script with the new name (e.g. My.php) and place it in the src/Xml/Response folder. 
   Note that the class name (and its php file name) must be the ucfirst() of name.
 * Add the 'use use Assessment\Xml\Response\My;' line at the top of the file for Parser class

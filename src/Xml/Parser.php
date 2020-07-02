@@ -12,16 +12,10 @@ use Exception;
 
 class Parser
 {
-    /**
-     * @var string
-     */
-    protected $payload;
-    protected $type;
+    protected string $payload;
+    protected string $type;
 
-    /**
-     * @var SimpleXMLElement
-     */
-    protected $xml;
+    protected SimpleXMLElement $xml;
 
     public function __construct(string $payload)
     {

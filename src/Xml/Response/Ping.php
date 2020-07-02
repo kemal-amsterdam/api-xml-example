@@ -40,7 +40,7 @@ class Ping extends Base
 
         $xml = $this->request;
         if (isset($xml->body->echo)) {
-            $this->body->addChild('echo', htmlspecialchars((string) $xml->body->echo, ENT_XML1));
+            $this->xml->body->addChild('echo', htmlspecialchars((string) $xml->body->echo, ENT_XML1));
         }
         return $this;
     }
