@@ -15,6 +15,7 @@ Installation
 * If needed, create the necessary Apache virtual host configuration for the 'test' site.
 * Make sure Apache's _DocumentRoot_ is set to the 'public' folder.
 * Configure Apache to allow processing of the .htaccess file.
+* execute 'composer install'
 
 
 Running the application
