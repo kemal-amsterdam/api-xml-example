@@ -1,6 +1,17 @@
 <?php
 
-declare(strict_types = 1);
+/**
+ * PHP XML processing example scripts
+ *
+ * PHP version 7
+ *
+ * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @author Kemal Djakman
+ * @link
+ *
+ */
+
+declare(strict_types=1);
 
 namespace Assessment\Xml\Response;
 
@@ -42,7 +53,7 @@ abstract class Base
      * All child of this class must implement this
      * @return $this
      */
-    abstract public function setBody();
+    abstract public function setBody(): self;
 
     /**
      * Populate the header node with the required (and optional) elements

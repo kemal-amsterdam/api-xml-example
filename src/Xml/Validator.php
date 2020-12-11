@@ -1,24 +1,36 @@
 <?php
 
-declare(strict_types = 1);
+/**
+ * PHP XML processing example scripts
+ *
+ * PHP version 7
+ *
+ * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @author Kemal Djakman
+ * @link
+ *
+ */
+
+declare(strict_types=1);
 
 namespace Assessment\Xml;
 
 use DomDocument;
+use JetBrains\PhpStorm\Pure;
 use LibXMLError;
 use Exception;
 
 /**
  * Class Validator
  *
- * The only purpose of this class is to validate a string representing an xml with the appropriate xsd
+ * Class to validate a string representing an xml with the appropriate xsd
  */
 class Validator
 {
     /**
      * path to the folder containing xsd files
      */
-    const XSD_PATH = SRC_PATH . '/xsds/';
+    const XSD_PATH = SRC_PATH . '/xsd/';
 
     /**
      * different levels of libxml errors
@@ -70,6 +82,7 @@ class Validator
      * @param LibXMLError $error
      * @return string
      */
+    #[Pure]
     protected static function libxmlError(LibXMLError $error): string
     {
         return sprintf('%s %s: %s on line %d',

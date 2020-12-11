@@ -1,6 +1,17 @@
 <?php
 
-declare(strict_types = 1);
+/**
+ * PHP XML processing example scripts
+ *
+ * PHP version 7
+ *
+ * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @author Kemal Djakman
+ * @link
+ *
+ */
+
+declare(strict_types=1);
 
 namespace Assessment\Xml\Response;
 
@@ -32,7 +43,7 @@ class Reverse extends Base
      * @return $this
      * @throws Exception
      */
-    public function setBody()
+    public function setBody(): self
     {
         if ($this->errSet) {
             throw new Exception('Internal Server Error: error element has already been set', 500);

@@ -1,6 +1,17 @@
 <?php
 
-declare(strict_types = 1);
+/**
+ * The publicly accessible script file
+ *
+ * PHP version 7
+ *
+ * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @author Kemal Djakman
+ * @link
+ *
+ */
+
+declare(strict_types=1);
 
 // relative path to the application folder from this file's folder
 define('SRC_PATH', '../src');
@@ -20,6 +31,7 @@ spl_autoload_register(function ($className) {
     if (is_file($classFile) && is_readable($classFile)) {
         /**  @noinspection PhpIncludeInspection  */ require $classFile;
     } else {
+        /** @noinspection PhpUnhandledExceptionInspection */
         throw new Exception('Internal Server Error: autoloader fails', 500);
     }
 });

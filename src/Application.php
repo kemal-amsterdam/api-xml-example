@@ -1,18 +1,30 @@
 <?php
 
-declare(strict_types = 1);
+/**
+ * PHP XML processing example scripts
+ *
+ * PHP version 7
+ *
+ * @license   http://www.apache.org/licenses/LICENSE-2.0  Apache License 2.0
+ * @author Kemal Djakman
+ * @link
+ *
+ */
+
+declare(strict_types=1);
 
 namespace Assessment;
 
-use Assessment\Xml\Parser;
+use Assessment\Xml\Processor;
 use Assessment\Xml\Response\Nack;
 use Exception;
 
 /**
  * Class Application
  */
-class Application
+final class Application
 {
+
     /**
      * Main method of the Application class
      */
@@ -21,10 +33,10 @@ class Application
         try {
             self::checkRequestMethod();
             $payload = self::getPayload();
-            $xmlParser = new Parser($payload);
-            $xmlParser->respond();
+            $xmlProcessor = new Processor($payload);
+            $xmlProcessor->respond();
         } catch (Exception $e) {
-            self::abort((int) $e->getCode(), $e->getMessage());
+            self::abort((int)$e->getCode(), $e->getMessage());
             exit;
         }
     }

@@ -1,11 +1,11 @@
 Introduction
 ------------
-This is a collection of PHP scripts and supporting files made for VoiceWorks PHP Assessment Test v1.0
+This is a collection of PHP scripts and supporting files made for a PHP XML processing example
 
 
 Requirements
 ------------
-The scripts is expected to be installed on an environment running Apache http server version 2 (or higher) with PHP
+These scripts expects to be installed on an environment running Apache http server version 2 (or higher) with PHP
 version 7.4 (or higher)
 
 
@@ -26,7 +26,7 @@ as the only payload. Do not use either 'form-data' nor 'x-www-form-urlencoded' f
 
 Caveats
 -------
-* The code was developed and tested on a personal computer running Windows 10 with Apache 2.4.43 and PHP 7.4.5.
+* The code was developed and tested on a personal computer running Windows 10 with Apache 2.4.43 and PHP 7.4.11.
   Nevertheless, I expect it to also run on other Operating System (OS).
 
 
@@ -50,12 +50,12 @@ How to add a new entry point
 * Create the appropriate xsd file, e.g. _my_request.xsd_ and _my_response.xsd_, place it in the src/xsds folder
 * Make a php class script with the new name (e.g. My.php) and place it in the src/Xml/Response folder. 
   Note that the class name (and its php file name) must be the ucfirst() of name.
-* Add the 'use use Assessment\Xml\Response\My;' line at the top of the file for Parser class
+* Add the 'use Assessment\Xml\Response\My;' line at the top of the file for XML\Parser class
 
 Afterthoughts
 -------------
 * I am on the opinion that structurally it would be easier if it is allowed to use different endpoints for each request. 
-  For example: http://voiceworks.test/ping_request and http://voiceworks.test/reverse_request
+  For example: http://sitename.test/ping_request and http://sitename.test/reverse_request
   That way, the app can just examine the URL to determine the intended type and use the correct xsd to validate against
   without having to try parsing the xml first to retrieve the header-&gt;type node.
 * I was surprised that the xsd was using &lt;xs: sequence&gt; instead of &lt;xs: all&gt; which meant that all elements
@@ -65,4 +65,3 @@ Afterthoughts
 * I have used htmlspecialchars() function with ENT_XML1 flag to guard against ampersand (&) and quote (") characters
   in the strings to be placed in the xml response. Probably a cleaner way is to extend the SimpleXMLElement class and
   override the addChild() method to use CDATA tag when needed.
-* I wish I was able to add some unit tests examples
